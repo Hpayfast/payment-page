@@ -2,101 +2,102 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Payment Page</title>
+<title>Payment</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-body {
-    font-family: Arial, sans-serif;
-    background: #f5f7fb;
-    margin: 0;
-    padding: 0;
+body{
+    margin:0;
+    font-family:Arial, sans-serif;
+    background:#f4f6fb;
 }
 
-.header {
-    display: flex;
-    justify-content: space-between;
-    padding: 15px;
-    font-weight: bold;
+.header{
+    display:flex;
+    justify-content:space-between;
+    padding:14px;
+    font-weight:600;
 }
 
-.timer {
-    color: #e63946;
+#timer{ color:#e63946; }
+.repay{ color:#1d3557; }
+
+.card{
+    max-width:420px;
+    margin:20px auto;
+    background:#fff;
+    padding:20px;
+    border-radius:12px;
+    box-shadow:0 6px 20px rgba(0,0,0,.1);
+    text-align:center;
 }
 
-.repay {
-    color: #1d3557;
+.app{
+    font-size:20px;
+    margin-bottom:6px;
 }
 
-.container {
-    max-width: 400px;
-    margin: auto;
-    background: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    text-align: center;
+.amount{
+    font-size:28px;
+    color:#2a9d8f;
+    margin-bottom:16px;
 }
 
-.app-name {
-    font-size: 22px;
-    margin-bottom: 10px;
+.upi-box{
+    display:flex;
+    gap:8px;
+    margin-bottom:14px;
 }
 
-.amount {
-    font-size: 26px;
-    color: #2a9d8f;
-    margin-bottom: 15px;
+.upi-box input{
+    flex:1;
+    padding:10px;
+    font-size:15px;
 }
 
-.upi-box {
-    background: #f1f1f1;
-    padding: 10px;
-    border-radius: 6px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 15px;
+.copy-btn{
+    background:#457b9d;
+    border:none;
+    color:#fff;
+    padding:10px 14px;
+    border-radius:6px;
+    cursor:pointer;
 }
 
-.copy-btn {
-    background: #457b9d;
-    color: #fff;
-    border: none;
-    padding: 6px 10px;
-    border-radius: 5px;
-    cursor: pointer;
+.qr img{
+    width:200px;
+    margin:12px 0;
 }
 
-.qr img {
-    width: 200px;
-    margin: 15px 0;
+.logos img{
+    width:70px;
+    margin:6px;
 }
 
-.logos img {
-    width: 60px;
-    margin: 5px;
+.utr{
+    margin-top:16px;
 }
 
-.utr {
-    margin-top: 15px;
+.utr input{
+    width:100%;
+    padding:10px;
+    margin-bottom:10px;
 }
 
-.utr input {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
+.submit-btn{
+    width:100%;
+    padding:10px;
+    background:#2a9d8f;
+    border:none;
+    color:#fff;
+    font-size:16px;
+    border-radius:6px;
+    cursor:pointer;
 }
 
-.submit-btn {
-    width: 100%;
-    padding: 10px;
-    background: #2a9d8f;
-    border: none;
-    color: #fff;
-    font-size: 16px;
-    cursor: pointer;
-    border-radius: 5px;
+#utrMsg{
+    margin-top:8px;
+    font-size:14px;
 }
 </style>
 </head>
@@ -104,55 +105,81 @@ body {
 <body>
 
 <div class="header">
-    <div class="timer" id="timer">10:00</div>
+    <div id="timer">10:00</div>
     <div class="repay">Repayment Available</div>
 </div>
 
-<div class="container">
-    <div class="app-name">CasCas</div>
-    <div class="amount">₹1500</div>
+<div class="card">
+    <div class="app">My Payment App</div>
+    <div class="amount">₹499</div>
 
+    <!-- UPI INPUT -->
     <div class="upi-box">
-        <span id="upi">chandan@ybl</span>
+        <input id="upiInput" value="example@upi" oninput="updateQR()">
         <button class="copy-btn" onclick="copyUPI()">Copy</button>
     </div>
 
+    <!-- QR -->
     <div class="qr">
-        <!-- Replace src with your QR image -->
-        <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=example@upi">
+        <img id="qrImage">
     </div>
 
-<div class="logos">
-    <img src="https://img.icons8.com/color/96/paytm.png" alt="Paytm">
-    <img src="https://img.icons8.com/color/96/google-pay-india.png" alt="Google Pay">
-    <img src="https://img.icons8.com/color/96/phone-pe.png" alt="PhonePe">
-</div>
+    <!-- LOGOS -->
+    <div class="logos">
+        <img src="https://img.icons8.com/color/96/paytm.png">
+        <img src="https://img.icons8.com/color/96/google-pay-india.png">
+        <img src="https://img.icons8.com/color/96/phone-pe.png">
+    </div>
 
-
-
+    <!-- UTR -->
     <div class="utr">
-        <input type="text" placeholder="Enter UTR Number">
-        <button class="submit-btn">Submit Payment</button>
+        <input id="utrInput" placeholder="Enter 12-digit UTR">
+        <button class="submit-btn" onclick="submitUTR()">Submit Payment</button>
+        <div id="utrMsg"></div>
     </div>
 </div>
 
 <script>
+/* TIMER */
 let time = 600;
-const timer = document.getElementById("timer");
-
-setInterval(() => {
-    if (time > 0) {
+const timerEl = document.getElementById("timer");
+setInterval(()=>{
+    if(time>0){
         time--;
-        let min = Math.floor(time / 60);
-        let sec = time % 60;
-        timer.textContent = `${min}:${sec.toString().padStart(2, '0')}`;
+        let m=Math.floor(time/60);
+        let s=time%60;
+        timerEl.textContent=`${m}:${s.toString().padStart(2,'0')}`;
     }
-}, 1000);
+},1000);
 
-function copyUPI() {
-    const upi = document.getElementById("upi").innerText;
+/* QR GENERATOR */
+function updateQR(){
+    const upi=document.getElementById("upiInput").value.trim();
+    document.getElementById("qrImage").src =
+      "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=upi://pay?pa="+encodeURIComponent(upi);
+}
+updateQR();
+
+/* COPY */
+function copyUPI(){
+    const upi=document.getElementById("upiInput").value;
     navigator.clipboard.writeText(upi);
-    alert("UPI ID Copied!");
+    alert("UPI ID copied");
+}
+
+/* UTR SUBMIT */
+function submitUTR(){
+    const utr=document.getElementById("utrInput").value.trim();
+    const msg=document.getElementById("utrMsg");
+
+    if(!/^[0-9]{12}$/.test(utr)){
+        msg.style.color="red";
+        msg.textContent="❌ Invalid UTR number";
+        return;
+    }
+
+    msg.style.color="green";
+    msg.textContent="✅ Payment submitted. Waiting for confirmation...";
 }
 </script>
 
