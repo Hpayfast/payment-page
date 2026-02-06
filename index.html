@@ -69,17 +69,23 @@ body{
     margin:12px 0;
 }
 
-.payment-logos{
+.simple-logos{
     display:flex;
     justify-content:center;
     align-items:center;
     gap:14px;
-    margin:10px 0;
+    margin:14px 0;
+    flex-wrap:wrap;
 }
 
-.payment-logos img{
-    width:70px;
-    height:auto;
+.logo{
+    border:2px solid #000;
+    color:#000;
+    font-weight:700;
+    padding:8px 14px;
+    border-radius:8px;
+    font-size:14px;
+    background:#fff;
 }
 
 }
@@ -135,11 +141,12 @@ body{
     </div>
 
     <!-- LOGOS -->
-<div class="payment-logos">
-    <img src="./assets/paytm-seeklogo.png" alt="Paytm">
-    <img src="./assets/google-pay-india-gpay-india-seeklogo.png" alt="Google Pay">
-    <img src="./assets/phonepe-seeklogo.png" alt="PhonePe">
+<div class="simple-logos">
+  <div class="logo">PAYTM</div>
+  <div class="logo">GOOGLE PAY</div>
+  <div class="logo">PHONEPE</div>
 </div>
+
 
 
 
