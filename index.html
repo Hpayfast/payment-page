@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Payment Page</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: #f5f7fb;
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    font-weight: bold;
+}
+
+.timer {
+    color: #e63946;
+}
+
+.repay {
+    color: #1d3557;
+}
+
+.container {
+    max-width: 400px;
+    margin: auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+.app-name {
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+
+.amount {
+    font-size: 26px;
+    color: #2a9d8f;
+    margin-bottom: 15px;
+}
+
+.upi-box {
+    background: #f1f1f1;
+    padding: 10px;
+    border-radius: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.copy-btn {
+    background: #457b9d;
+    color: #fff;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.qr img {
+    width: 200px;
+    margin: 15px 0;
+}
+
+.logos img {
+    width: 60px;
+    margin: 5px;
+}
+
+.utr {
+    margin-top: 15px;
+}
+
+.utr input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 10px;
+    background: #2a9d8f;
+    border: none;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+    <div class="timer" id="timer">10:00</div>
+    <div class="repay">Repayment Available</div>
+</div>
+
+<div class="container">
+    <div class="app-name">My Payment App</div>
+    <div class="amount">₹499</div>
+
+    <div class="upi-box">
+        <span id="upi">example@upi</span>
+        <button class="copy-btn" onclick="copyUPI()">Copy</button>
+    </div>
+
+    <div class="qr">
+        <!-- Replace src with your QR image -->
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=example@upi">
+    </div>
+
+    <div class="logos">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Paytm_logo.png">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/5/5f/Google_Pay_Logo.svg">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/f/f2/PhonePe_Logo.svg">
+    </div>
+
+    <div class="utr">
+        <input type="text" placeholder="Enter UTR Number">
+        <button class="submit-btn">Submit Payment</button>
+    </div>
+</div>
+
+<script>
+let time = 600;
+const timer = document.getElementById("timer");
+
+setInterval(() => {
+    if (time > 0) {
+        time--;
+        let min = Math.floor(time / 60);
+        let sec = time % 60;
+        timer.textContent = `${min}:${sec.toString().padStart(2, '0')}`;
+    }
+}, 1000);
+
+function copyUPI() {
+    const upi = document.getElementById("upi").innerText;
+    navigator.clipboard.writeText(upi);
+    alert("UPI ID Copied!");
+}
+</script>
+
+</body>
+</html>
