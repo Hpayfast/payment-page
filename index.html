@@ -5,114 +5,152 @@
 <title>Payment</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
 <style>
+*{
+    box-sizing:border-box;
+}
+
 body{
     margin:0;
-    font-family:Arial, sans-serif;
-    background:#f4f6fb;
+    font-family:'Poppins',sans-serif;
+    background:linear-gradient(135deg,#1e3c72,#2a5298);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+}
+
+.container{
+    width:100%;
+    padding:20px;
 }
 
 .header{
     display:flex;
     justify-content:space-between;
-    padding:14px;
-    font-weight:600;
+    color:#fff;
+    font-weight:500;
+    margin-bottom:20px;
 }
 
-#timer{ color:#e63946; }
-.repay{ color:#1d3557; }
+#timer{
+    background:rgba(255,255,255,0.15);
+    padding:6px 12px;
+    border-radius:20px;
+    backdrop-filter:blur(8px);
+}
+
+.repay{
+    opacity:0.9;
+}
 
 .card{
     max-width:420px;
-    margin:20px auto;
-    background:#fff;
-    padding:20px;
-    border-radius:12px;
-    box-shadow:0 6px 20px rgba(0,0,0,.1);
+    margin:auto;
+    padding:30px 24px;
+    border-radius:20px;
+    background:rgba(255,255,255,0.15);
+    backdrop-filter:blur(20px);
+    box-shadow:0 15px 40px rgba(0,0,0,0.25);
     text-align:center;
+    color:#fff;
 }
 
 .app{
-    font-size:20px;
-    margin-bottom:6px;
+    font-size:22px;
+    font-weight:600;
+    margin-bottom:8px;
 }
 
 .amount{
-    font-size:28px;
-    color:#2a9d8f;
-    margin-bottom:16px;
+    font-size:32px;
+    font-weight:700;
+    margin-bottom:22px;
 }
 
 .upi-box{
     display:flex;
-    gap:8px;
-    margin-bottom:14px;
+    gap:10px;
+    margin-bottom:18px;
 }
 
 .upi-box input{
     flex:1;
-    padding:10px;
-    font-size:15px;
+    padding:12px;
+    border-radius:10px;
+    border:none;
+    outline:none;
+    font-size:14px;
 }
 
 .copy-btn{
-    background:#457b9d;
+    background:#00c6ff;
+    background:linear-gradient(45deg,#00c6ff,#0072ff);
     border:none;
+    padding:12px 16px;
     color:#fff;
-    padding:10px 14px;
-    border-radius:6px;
+    border-radius:10px;
     cursor:pointer;
+    font-weight:500;
+    transition:0.3s;
+}
+
+.copy-btn:hover{
+    opacity:0.85;
 }
 
 .qr img{
     width:200px;
-    margin:12px 0;
+    border-radius:14px;
+    background:#fff;
+    padding:10px;
+    margin:15px 0;
 }
 
 .simple-logos{
     display:flex;
     justify-content:center;
-    align-items:center;
-    gap:14px;
-    margin:14px 0;
+    gap:10px;
     flex-wrap:wrap;
+    margin-bottom:18px;
 }
 
 .logo{
-    border:2px solid #000;
-    color:#000;
-    font-weight:700;
+    background:rgba(255,255,255,0.2);
     padding:8px 14px;
-    border-radius:8px;
-    font-size:14px;
-    background:#fff;
-}
-
-}
-
-.utr{
-    margin-top:16px;
+    border-radius:20px;
+    font-size:13px;
 }
 
 .utr input{
     width:100%;
-    padding:10px;
-    margin-bottom:10px;
+    padding:12px;
+    border-radius:10px;
+    border:none;
+    outline:none;
+    margin-bottom:12px;
 }
 
 .submit-btn{
     width:100%;
-    padding:10px;
-    background:#2a9d8f;
+    padding:12px;
     border:none;
+    border-radius:10px;
+    background:linear-gradient(45deg,#00f260,#0575e6);
     color:#fff;
-    font-size:16px;
-    border-radius:6px;
+    font-weight:600;
     cursor:pointer;
+    transition:0.3s;
+}
+
+.submit-btn:hover{
+    opacity:0.9;
 }
 
 #utrMsg{
-    margin-top:8px;
+    margin-top:10px;
     font-size:14px;
 }
 </style>
@@ -120,48 +158,43 @@ body{
 
 <body>
 
-<div class="header">
-    <div id="timer">10:00</div>
-    <div class="repay">Repayment Available</div>
-</div>
-
-<div class="card">
-    <div class="app">Hicas</div>
-    <div class="amount">₹11,500</div>
-
-    <!-- UPI INPUT -->
-    <div class="upi-box">
-        <input id="upiInput" value="paytm.s206ktz@pty" oninput="updateQR()">
-        <button class="copy-btn" onclick="copyUPI()">Copy</button>
+<div class="container">
+    <div class="header">
+        <div id="timer">10:00</div>
+        <div class="repay">Repayment Available</div>
     </div>
 
-    <!-- QR -->
-    <div class="qr">
-        <img id="qrImage">
-    </div>
+    <div class="card">
+        <div class="app">Hicas</div>
+        <div class="amount">₹11,500</div>
 
-    <!-- LOGOS -->
-<div class="simple-logos">
-  <div class="logo">PAYTM</div>
-  <div class="logo">GOOGLE PAY</div>
-  <div class="logo">PHONEPE</div>
-</div>
+        <div class="upi-box">
+            <input id="upiInput" value="paytm.s206ktz@pty" oninput="updateQR()">
+            <button class="copy-btn" onclick="copyUPI()">Copy</button>
+        </div>
 
+        <div class="qr">
+            <img id="qrImage">
+        </div>
 
+        <div class="simple-logos">
+            <div class="logo">Paytm</div>
+            <div class="logo">Google Pay</div>
+            <div class="logo">PhonePe</div>
+        </div>
 
-
-    <!-- UTR -->
-    <div class="utr">
-        <input id="utrInput" placeholder="Enter 12-digit UTR">
-        <button class="submit-btn" onclick="submitUTR()">Submit Payment</button>
-        <div id="utrMsg"></div>
+        <div class="utr">
+            <input id="utrInput" placeholder="Enter 12-digit UTR">
+            <button class="submit-btn" onclick="submitUTR()">Submit Payment</button>
+            <div id="utrMsg"></div>
+        </div>
     </div>
 </div>
 
 <script>
-/* TIMER */
 let time = 600;
 const timerEl = document.getElementById("timer");
+
 setInterval(()=>{
     if(time>0){
         time--;
@@ -171,7 +204,6 @@ setInterval(()=>{
     }
 },1000);
 
-/* QR GENERATOR */
 function updateQR(){
     const upi=document.getElementById("upiInput").value.trim();
     document.getElementById("qrImage").src =
@@ -179,25 +211,23 @@ function updateQR(){
 }
 updateQR();
 
-/* COPY */
 function copyUPI(){
     const upi=document.getElementById("upiInput").value;
     navigator.clipboard.writeText(upi);
     alert("UPI ID copied");
 }
 
-/* UTR SUBMIT */
 function submitUTR(){
     const utr=document.getElementById("utrInput").value.trim();
     const msg=document.getElementById("utrMsg");
 
     if(!/^[0-9]{12}$/.test(utr)){
-        msg.style.color="red";
+        msg.style.color="#ff6b6b";
         msg.textContent="❌ Invalid UTR number";
         return;
     }
 
-    msg.style.color="green";
+    msg.style.color="#00ffae";
     msg.textContent="✅ Payment submitted. Contact To Agent...";
 }
 </script>
