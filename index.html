@@ -2,236 +2,290 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Payment</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Payment Page</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
 *{
-    box-sizing:border-box;
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
 }
 
 body{
-    margin:0;
-    font-family:'Poppins',sans-serif;
-    background:linear-gradient(135deg,#1e3c72,#2a5298);
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    min-height:100vh;
-}
-
-.container{
-    width:100%;
-    padding:20px;
-}
-
-.header{
-    display:flex;
-    justify-content:space-between;
-    color:#fff;
-    font-weight:500;
-    margin-bottom:20px;
-}
-
-#timer{
-    background:rgba(255,255,255,0.15);
-    padding:6px 12px;
-    border-radius:20px;
-    backdrop-filter:blur(8px);
-}
-
-.repay{
-    opacity:0.9;
+background:linear-gradient(135deg,#0f172a,#1e3a8a,#2563eb);
+display:flex;
+justify-content:center;
+align-items:center;
+min-height:100vh;
+padding:20px;
 }
 
 .card{
-    max-width:420px;
-    margin:auto;
-    padding:30px 24px;
-    border-radius:20px;
-    background:rgba(255,255,255,0.15);
-    backdrop-filter:blur(20px);
-    box-shadow:0 15px 40px rgba(0,0,0,0.25);
-    text-align:center;
-    color:#fff;
+width:100%;
+max-width:420px;
+background:rgba(255,255,255,.12);
+backdrop-filter:blur(20px);
+border-radius:25px;
+padding:25px;
+box-shadow:0 15px 40px rgba(0,0,0,.35);
+color:#fff;
 }
 
-.app{
-    font-size:22px;
-    font-weight:600;
-    margin-bottom:8px;
+.header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:20px;
+}
+
+.timer{
+background:rgba(255,255,255,.15);
+padding:8px 15px;
+border-radius:30px;
+font-weight:600;
+}
+
+.status{
+color:#8fff9f;
+font-size:14px;
+}
+
+.title{
+text-align:center;
+font-size:28px;
+font-weight:700;
+margin-bottom:10px;
+}
+
+.product{
+text-align:center;
+font-size:18px;
+margin-bottom:8px;
+}
+
+.name{
+text-align:center;
+font-size:16px;
+margin-bottom:5px;
+}
+
+.pan{
+text-align:center;
+font-size:14px;
+opacity:.8;
+margin-bottom:20px;
 }
 
 .amount{
-    font-size:32px;
-    font-weight:700;
-    margin-bottom:22px;
+text-align:center;
+font-size:38px;
+font-weight:700;
+color:#00ff99;
+margin-bottom:20px;
 }
 
-.upi-box{
-    display:flex;
-    gap:10px;
-    margin-bottom:18px;
+label{
+display:block;
+margin-bottom:8px;
+font-size:14px;
 }
 
-.upi-box input{
-    flex:1;
-    padding:12px;
-    border-radius:10px;
-    border:none;
-    outline:none;
-    font-size:14px;
+.input-box{
+display:flex;
+gap:10px;
+margin-bottom:20px;
 }
 
-.copy-btn{
-    background:#00c6ff;
-    background:linear-gradient(45deg,#00c6ff,#0072ff);
-    border:none;
-    padding:12px 16px;
-    color:#fff;
-    border-radius:10px;
-    cursor:pointer;
-    font-weight:500;
-    transition:0.3s;
+.input-box input{
+flex:1;
+padding:12px;
+border:none;
+border-radius:12px;
+font-size:15px;
+outline:none;
 }
 
-.copy-btn:hover{
-    opacity:0.85;
+.copy{
+border:none;
+padding:12px 18px;
+background:#00b894;
+color:#fff;
+border-radius:12px;
+font-weight:600;
+cursor:pointer;
+}
+
+.copy:hover{
+background:#00a884;
+}
+
+.qr{
+display:flex;
+justify-content:center;
+margin:20px 0;
 }
 
 .qr img{
-    width:200px;
-    border-radius:14px;
-    background:#fff;
-    padding:10px;
-    margin:15px 0;
+width:220px;
+background:#fff;
+padding:10px;
+border-radius:18px;
+}
+.apps{
+display:flex;
+justify-content:center;
+gap:10px;
+margin-bottom:20px;
+flex-wrap:wrap;
 }
 
-.simple-logos{
-    display:flex;
-    justify-content:center;
-    gap:10px;
-    flex-wrap:wrap;
-    margin-bottom:18px;
+.app{
+background:rgba(255,255,255,.15);
+padding:10px 18px;
+border-radius:30px;
+font-size:14px;
 }
 
-.logo{
-    background:rgba(255,255,255,0.2);
-    padding:8px 14px;
-    border-radius:20px;
-    font-size:13px;
+#utr{
+width:100%;
+padding:13px;
+border:none;
+outline:none;
+border-radius:12px;
+font-size:15px;
+margin-bottom:15px;
 }
 
-.utr input{
-    width:100%;
-    padding:12px;
-    border-radius:10px;
-    border:none;
-    outline:none;
-    margin-bottom:12px;
+.submit{
+width:100%;
+padding:14px;
+border:none;
+border-radius:12px;
+background:linear-gradient(45deg,#00c853,#0091ea);
+color:#fff;
+font-size:16px;
+font-weight:600;
+cursor:pointer;
 }
 
-.submit-btn{
-    width:100%;
-    padding:12px;
-    border:none;
-    border-radius:10px;
-    background:linear-gradient(45deg,#00f260,#0575e6);
-    color:#fff;
-    font-weight:600;
-    cursor:pointer;
-    transition:0.3s;
+.submit:hover{
+opacity:.9;
 }
 
-.submit-btn:hover{
-    opacity:0.9;
-}
-
-#utrMsg{
-    margin-top:10px;
-    font-size:14px;
+#msg{
+text-align:center;
+margin-top:15px;
+font-weight:600;
 }
 </style>
 </head>
 
 <body>
 
-<div class="container">
-    <div class="header">
-        <div id="timer">10:00</div>
-        <div class="repay">Repayment Available</div>
-    </div>
+<div class="card">
 
-    <div class="card">
-        <div class="app">Rupeego</div>
-<div class="Name">Jugesh prajapti</div>
-<div class="PAN NUMBER">BJBPJ6043H</div>
-        <div class="amount">₹12,500</div>
+<div class="header">
+<div class="timer" id="timer">10:00</div>
+<div class="status">Payment Active</div>
+</div>
 
-        <div class="upi-box">
-            <input id="upiInput" value="pranshu.22@ptaxis" oninput="updateQR()">
-            <button class="copy-btn" onclick="copyUPI()">Copy</button>
-        </div>
+<div class="title">Secure Payment</div>
 
-        <div class="qr">
-            <img id="qrImage">
-        </div>
+<div class="product">Product : Loan Repayment</div>
 
-        <div class="simple-logos">
-            <div class="logo">Paytm</div>
-            <div class="logo">Google Pay</div>
-            <div class="logo">PhonePe</div>
-        </div>
+<div class="name">Name : Jugesh Prajapati</div>
 
-        <div class="utr">
-            <input id="utrInput" placeholder="Enter 12-digit UTR">
-            <button class="submit-btn" onclick="submitUTR()">Submit Payment</button>
-            <div id="utrMsg"></div>
-        </div>
-    </div>
+<div class="pan">PAN : BJBPJ6043H</div>
+
+<div class="amount">₹12,500</div>
+
+<label>UPI ID</label>
+
+<div class="input-box">
+<input type="text" id="upi" value="pranshu.22@ptaxis" oninput="updateQR()">
+<button class="copy" onclick="copyUPI()">Copy</button>
+</div>
+
+<div class="qr">
+<img id="qrImage">
+</div>
+
+<div class="apps">
+<div class="app">Paytm</div>
+<div class="app">Google Pay</div>
+<div class="app">PhonePe</div>
+</div>
+
+<input type="text" id="utr" placeholder="Enter 12 Digit UTR">
+
+<button class="submit" onclick="submitUTR()">Submit Payment</button>
+
+<div id="msg"></div>
+
 </div>
 
 <script>
 let time = 600;
-const timerEl = document.getElementById("timer");
+const timer = document.getElementById("timer");
 
-setInterval(()=>{
-    if(time>0){
+setInterval(function () {
+    if (time > 0) {
         time--;
-        let m=Math.floor(time/60);
-        let s=time%60;
-        timerEl.textContent=`${m}:${s.toString().padStart(2,'0')}`;
+        let min = Math.floor(time / 60);
+        let sec = time % 60;
+        timer.innerHTML = min + ":" + (sec < 10 ? "0" + sec : sec);
+    } else {
+        timer.innerHTML = "Expired";
     }
-},1000);
+}, 1000);
 
-function updateQR(){
-    const upi=document.getElementById("upiInput").value.trim();
+function updateQR() {
+    let upi = document.getElementById("upi").value.trim();
+
     document.getElementById("qrImage").src =
-      "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=upi://pay?pa="+encodeURIComponent(upi);
+        "https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=" +
+        encodeURIComponent("upi://pay?pa=" + upi);
 }
+
 updateQR();
 
-function copyUPI(){
-    const upi=document.getElementById("upiInput").value;
-    navigator.clipboard.writeText(upi);
-    alert("UPI ID copied");
+function copyUPI() {
+    let upi = document.getElementById("upi");
+
+    upi.select();
+    upi.setSelectionRange(0, 99999);
+
+    navigator.clipboard.writeText(upi.value);
+
+    alert("✅ UPI ID Copied");
 }
 
-function submitUTR(){
-    const utr=document.getElementById("utrInput").value.trim();
-    const msg=document.getElementById("utrMsg");
+function submitUTR() {
 
-    if(!/^[0-9]{12}$/.test(utr)){
-        msg.style.color="#ff6b6b";
-        msg.textContent="❌ Invalid UTR number";
+    let utr = document.getElementById("utr").value.trim();
+
+    let msg = document.getElementById("msg");
+
+    if (!/^[0-9]{12}$/.test(utr)) {
+
+        msg.style.color = "#ff4d4d";
+
+        msg.innerHTML = "❌ Invalid UTR Number";
+
         return;
+
     }
 
-    msg.style.color="#00ffae";
-    msg.textContent="✅ Payment submitted. Contact To Agent...";
+    msg.style.color = "#00ff99";
+
+    msg.innerHTML = "✅ Payment Submitted Successfully";
+
 }
+
 </script>
 
 </body>
