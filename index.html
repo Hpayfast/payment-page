@@ -1,750 +1,179 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Secure Payment</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
 <style>
-
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:'Poppins',sans-serif;
+font-family:Arial,sans-serif;
 }
 
 body{
-
-min-height:100vh;
-
+height:100vh;
 display:flex;
-
 justify-content:center;
-
 align-items:center;
-
-padding:20px;
-
-overflow-x:hidden;
-
-background:linear-gradient(-45deg,#0f2027,#203a43,#2c5364,#5f2c82,#49a09d);
-
+background:linear-gradient(-45deg,#0f2027,#203a43,#2c5364,#0f2027);
 background-size:400% 400%;
-
-animation:bgMove 15s ease infinite;
-
-position:relative;
-
+animation:bg 8s infinite alternate;
 }
 
-@keyframes bgMove{
-
+@keyframes bg{
 0%{background-position:0% 50%;}
-
-50%{background-position:100% 50%;}
-
-100%{background-position:0% 50%;}
-
-}
-
-body::before{
-
-content:"";
-
-position:absolute;
-
-width:700px;
-
-height:700px;
-
-background:radial-gradient(circle,rgba(255,255,255,.15),transparent 70%);
-
-top:-250px;
-
-left:-200px;
-
-animation:float1 10s linear infinite;
-
-filter:blur(10px);
-
-}
-
-body::after{
-
-content:"";
-
-position:absolute;
-
-width:600px;
-
-height:600px;
-
-background:radial-gradient(circle,rgba(0,255,255,.15),transparent 70%);
-
-bottom:-250px;
-
-right:-180px;
-
-animation:float2 12s linear infinite;
-
-filter:blur(10px);
-
-}
-
-@keyframes float1{
-
-0%{transform:rotate(0deg);}
-
-100%{transform:rotate(360deg);}
-
-}
-
-@keyframes float2{
-
-0%{transform:rotate(360deg);}
-
-100%{transform:rotate(0deg);}
-
-}
-
-.container{
-
-position:relative;
-
-z-index:2;
-
-width:100%;
-
-max-width:430px;
-
+100%{background-position:100% 50%;}
 }
 
 .card{
-
-background:rgba(255,255,255,.12);
-
-backdrop-filter:blur(18px);
-
-border:1px solid rgba(255,255,255,.2);
-
-border-radius:28px;
-
-padding:25px;
-
-box-shadow:0 20px 45px rgba(0,0,0,.35);
-
-color:#fff;
-
-animation:cardAnim .6s ease;
-
+width:360px;
+background:white;
+padding:20px;
+border-radius:15px;
+box-shadow:0 0 20px rgba(0,0,0,.3);
+text-align:center;
 }
 
-@keyframes cardAnim{
-
-from{
-
-opacity:0;
-
-transform:translateY(40px);
-
-}
-
-to{
-
-opacity:1;
-
-transform:translateY(0);
-
-}
-
-}
-.header{
-
-display:flex;
-
-justify-content:space-between;
-
-align-items:center;
-
-margin-bottom:20px;
-
+h2{
+color:#0a7cff;
+margin-bottom:10px;
 }
 
 .timer{
-
-background:rgba(255,255,255,.15);
-
-padding:10px 18px;
-
-border-radius:30px;
-
-font-weight:700;
-
-font-size:15px;
-
-backdrop-filter:blur(10px);
-
+font-size:22px;
+color:red;
+font-weight:bold;
+margin:10px 0;
 }
 
-.status{
-
-background:#16a34a;
-
-padding:8px 15px;
-
-border-radius:30px;
-
-font-size:13px;
-
-font-weight:600;
-
-box-shadow:0 0 15px rgba(34,197,94,.5);
-
+.info{
+background:#f4f4f4;
+padding:10px;
+border-radius:8px;
+margin:10px 0;
 }
 
-.logo{
-
-text-align:center;
-
-font-size:34px;
-
-font-weight:700;
-
-margin-top:8px;
-
-}
-
-.subtitle{
-
-text-align:center;
-
-opacity:.9;
-
-margin-top:4px;
-
-margin-bottom:25px;
-
-font-size:14px;
-
-}
-
-label{
-
-display:block;
-
-font-size:14px;
-
-margin-bottom:8px;
-
-font-weight:500;
-
-}
-
-.input{
-
-width:100%;
-
-padding:13px;
-
-border:none;
-
-outline:none;
-
-border-radius:14px;
-
-font-size:15px;
-
-margin-bottom:18px;
-
-background:rgba(255,255,255,.95);
-
-color:#111;
-
-}
-
-.amount{
-
-font-size:42px;
-
-font-weight:700;
-
-text-align:center;
-
-color:#22ff88;
-
-margin:20px 0;
-
-text-shadow:0 0 15px rgba(34,255,136,.5);
-
-}
-
-.upi-box{
-
+.upi{
 display:flex;
-
-align-items:center;
-
-gap:10px;
-
-margin-bottom:20px;
-
+margin-top:10px;
 }
 
-.upi-box input{
-
+.upi input{
 flex:1;
-
-padding:13px;
-
-border:none;
-
-outline:none;
-
-border-radius:14px;
-
-font-size:15px;
-
-background:#fff;
-
-color:#111;
-
-min-width:0;
-
+padding:10px;
+border:1px solid #ccc;
+border-radius:5px 0 0 5px;
 }
 
-.copy-btn{
-
-padding:13px 18px;
-
+.upi button{
+padding:10px 15px;
+background:#0a7cff;
+color:white;
 border:none;
-
-border-radius:14px;
-
-background:linear-gradient(45deg,#00c6ff,#0072ff);
-
-color:#fff;
-
-font-weight:600;
-
 cursor:pointer;
-
-white-space:nowrap;
-
-transition:.3s;
-
+border-radius:0 5px 5px 0;
 }
 
-.copy-btn:hover{
-
-transform:scale(1.05);
-
-}
-.qr-box{
-
-display:flex;
-
-justify-content:center;
-
-align-items:center;
-
+.qr{
 margin:20px 0;
-
 }
 
-.qr-box img{
-
-width:220px;
-
-height:220px;
-
-background:#fff;
-
-padding:12px;
-
-border-radius:20px;
-
-box-shadow:0 10px 25px rgba(0,0,0,.3);
-
-animation:zoom 2s infinite alternate;
-
+.qr img{
+width:180px;
+height:180px;
+border:1px solid #ddd;
 }
 
-@keyframes zoom{
-
-from{transform:scale(1);}
-
-to{transform:scale(1.04);}
-
-}
-
-.payments{
-
-display:flex;
-
-justify-content:center;
-
-align-items:center;
-
-gap:18px;
-
-margin:20px 0;
-
-flex-wrap:wrap;
-
-}
-
-.payments img{
-
-width:58px;
-
-height:58px;
-
-background:#fff;
-
-padding:8px;
-
-border-radius:14px;
-
-transition:.3s;
-
-box-shadow:0 6px 15px rgba(0,0,0,.25);
-
-}
-
-.payments img:hover{
-
-transform:translateY(-5px) scale(1.08);
-
-}
-
-.submit-btn{
-
+input[type=text]{
 width:100%;
-
-padding:14px;
-
-border:none;
-
-border-radius:15px;
-
-background:linear-gradient(45deg,#00d26a,#008cff);
-
-color:#fff;
-
-font-size:16px;
-
-font-weight:700;
-
-cursor:pointer;
-
-transition:.3s;
-
+padding:10px;
+border:1px solid #ccc;
+border-radius:5px;
+margin-top:10px;
 }
 
-.submit-btn:hover{
-
-transform:scale(1.02);
-
-}
-
-#msg{
-
+.submit{
+width:100%;
+padding:12px;
 margin-top:15px;
-
-text-align:center;
-
-font-size:15px;
-
-font-weight:600;
-
-min-height:22px;
-
+background:green;
+color:white;
+border:none;
+border-radius:5px;
+font-size:16px;
+cursor:pointer;
 }
-
 </style>
-
 </head>
 
 <body>
 
-<div class="container">
-
 <div class="card">
-<div class="header">
 
-<div class="timer" id="timer">10:00</div>
+<h2>🔒 Secure Payment</h2>
 
-<div class="status">Payment Active</div>
-
+<div class="timer" id="timer">
+10:00
 </div>
 
-<div class="logo">Rupeego</div>
+<div class="info">
+<b>Product:</b> Premium Plan
+<br><br>
+<b>Amount:</b> ₹499
+</div>
 
-<div class="subtitle">Secure Payment Gateway</div>
+<div class="upi">
+<input type="text" id="upi" value="yourupi@upi" readonly>
+<button onclick="copyUPI()">Copy</button>
+</div>
 
-<label>Product Name</label>
+<div class="qr">
+<img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=yourupi@upi" alt="QR">
+</div>
 
-<input
-type="text"
-class="input"
-id="product"
-value="Loan Repayment">
+<input type="text" maxlength="12" placeholder="Enter 12 Digit UTR">
 
-<label>Amount (₹ INR)</label>
-
-<input
-type="text"
-class="input"
-id="amount"
-value="12500">
-
-<div class="amount" id="showAmount">₹12,500</div>
-
-<label>UPI ID</label>
-
-<div class="upi-box">
-
-<input
-type="text"
-id="upi"
-value="pranshu.22@ptaxis"
-oninput="updateQR()">
-
-<button
-class="copy-btn"
-onclick="copyUPI()">
-Copy
+<button class="submit">
+Submit
 </button>
-
-</div>
-
-<div class="qr-box">
-
-<img
-id="qrImage"
-src=""
-alt="UPI QR Code">
-
-</div>
-
-<div class="payments">
-
-<img
-src="https://upload.wikimedia.org/wikipedia/commons/5/55/Paytm_logo.png"
-alt="Paytm">
-
-<img
-src="https://upload.wikimedia.org/wikipedia/commons/2/24/Google_Pay_Logo.svg"
-alt="Google Pay">
-
-<img
-src="https://upload.wikimedia.org/wikipedia/commons/f/fd/PhonePe_Logo.svg"
-alt="PhonePe">
-
-</div>
-
-<label>Enter 12 Digit UTR Number</label>
-
-<input
-type="text"
-id="utr"
-class="input"
-maxlength="12"
-placeholder="Enter UTR Number">
-
-<button
-class="submit-btn"
-onclick="submitUTR()">
-Submit Payment
-</button>
-
-<div id="msg"></div>
-
-</div>
 
 </div>
 
 <script>
-let time = 600;
 
-const timer = document.getElementById("timer");
+function copyUPI(){
+let upi=document.getElementById("upi");
 
-setInterval(function(){
+navigator.clipboard.writeText(upi.value);
 
-if(time>0){
+alert("UPI Copied");
+}
 
-time--;
+let total=600;
 
-let m=Math.floor(time/60);
+let x=setInterval(function(){
 
-let s=time%60;
+let m=Math.floor(total/60);
 
-timer.innerHTML=m+":"+(s<10?"0"+s:s);
+let s=total%60;
 
-}else{
+document.getElementById("timer").innerHTML=
+String(m).padStart(2,"0")+":"+
+String(s).padStart(2,"0");
 
-timer.innerHTML="Expired";
+total--;
 
-timer.style.background="#ff3b30";
-
+if(total<0){
+clearInterval(x);
+document.getElementById("timer").innerHTML="Expired";
 }
 
 },1000);
 
-function formatAmount(){
+</script>
 
-let value=document.getElementById("amount").value.replace(/,/g,'');
-
-if(value==="") value="0";
-
-document.getElementById("showAmount").innerHTML="₹"+Number(value).toLocaleString("en-IN");
-
-}
-
-document.getElementById("amount").addEventListener("input",formatAmount);
-
-formatAmount();
-
-function updateQR(){
-
-let upi=document.getElementById("upi").value.trim();
-
-let qr="upi://pay?pa="+upi;
-
-document.getElementById("qrImage").src=
-
-"https://api.qrserver.com/v1/create-qr-code/?size=250x250&data="+encodeURIComponent(qr);
-
-}
-
-updateQR();
-function copyUPI(){
-
-const upi=document.getElementById("upi").value;
-
-navigator.clipboard.writeText(upi).then(function(){
-
-const btn=document.querySelector(".copy-btn");
-
-const oldText=btn.innerHTML;
-
-btn.innerHTML="✓ Copied";
-
-btn.style.background="linear-gradient(45deg,#16a34a,#22c55e)";
-
-setTimeout(function(){
-
-btn.innerHTML=oldText;
-
-btn.style.background="linear-gradient(45deg,#00c6ff,#0072ff)";
-
-},2000);
-
-});
-
-}
-
-function submitUTR(){
-
-const utr=document.getElementById("utr").value.trim();
-
-const msg=document.getElementById("msg");
-
-if(!/^[0-9]{12}$/.test(utr)){
-
-msg.style.color="#ff5c5c";
-
-msg.innerHTML="❌ Please enter a valid 12-digit UTR number";
-
-return;
-
-}
-
-msg.style.color="#22ff88";
-
-msg.innerHTML="✅ Payment Submitted Successfully";
-
-document.getElementById("utr").disabled=true;
-
-setTimeout(function(){
-
-msg.innerHTML="";
-
-document.getElementById("utr").disabled=false;
-
-document.getElementById("utr").value="";
-
-},3000);
-
-}
-/* Floating animation */
-
-const card=document.querySelector(".card");
-
-let deg=0;
-
-setInterval(function(){
-
-deg+=0.15;
-
-card.style.transform="translateY("+Math.sin(deg)*3+"px)";
-
-},30);
-
-/* Glow Effect */
-
-setInterval(function(){
-
-document.querySelector(".amount").style.textShadow=
-"0 0 "+(10+Math.random()*20)+"px #22ff88";
-
-},300);
-
-/* Enter Key Submit */
-
-document.getElementById("utr").addEventListener("keypress",function(e){
-
-if(e.key==="Enter"){
-
-submitUTR();
-
-}
-
-});
-
-/* Auto Uppercase Product */
-
-document.getElementById("product").addEventListener("keyup",function(){
-
-this.value=this.value.replace(/\b\w/g,function(a){
-
-return a.toUpperCase();
-
-});
-
-});
-
-/* Prevent Non-Numbers in Amount */
-
-document.getElementById("amount").addEventListener("input",function(){
-
-this.value=this.value.replace(/[^0-9]/g,'');
-
-formatAmount();
-
-});
-
-/* Prevent Non-Numbers in UTR */
-
-document.getElementById("utr").addEventListener("input",function(){
-
-this.value=this.value.replace(/[^0-9]/g,'');
-
-});
+</body>
+</html>
