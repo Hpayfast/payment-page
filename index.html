@@ -290,13 +290,30 @@
       gap: 14px;
       flex-wrap: wrap;
       justify-content: center;
-      font-weight: 800;
-      font-size: 18px;
+      align-items: center;
     }
 
-    .paytm { color: #1e90ff; }
-    .gpay { color: #ff3b30; }
-    .phonepe { color: #5f4bff; }
+    .pay-icon {
+      width: 84px;
+      height: 38px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px 10px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+      overflow: hidden;
+    }
+
+    .pay-icon svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
 
     .utr-box {
       margin-top: 24px;
@@ -352,6 +369,7 @@
       .copy-btn { width: 100%; }
       label, .utr-title { font-size: 17px; }
       .qr-box img { width: 220px; }
+      .pay-icon { width: 78px; height: 36px; }
     }
   </style>
 </head>
@@ -400,9 +418,26 @@
       </div>
 
       <div class="payments">
-        <span class="paytm">Paytm</span>
-        <span class="gpay">Gpay</span>
-        <span class="phonepe">PhonePe</span>
+        <div class="pay-icon" aria-label="Paytm logo">
+          <svg viewBox="0 0 120 50" xmlns="http://www.w3.org/2000/svg">
+            <rect x="1" y="1" width="118" height="48" rx="12" fill="rgba(255,255,255,0.04)" />
+            <text x="60" y="32" text-anchor="middle" font-size="22" font-family="Arial, sans-serif" font-weight="700" fill="#1e90ff">Paytm</text>
+          </svg>
+        </div>
+
+        <div class="pay-icon" aria-label="Gpay logo">
+          <svg viewBox="0 0 120 50" xmlns="http://www.w3.org/2000/svg">
+            <rect x="1" y="1" width="118" height="48" rx="12" fill="rgba(255,255,255,0.04)" />
+            <text x="60" y="32" text-anchor="middle" font-size="22" font-family="Arial, sans-serif" font-weight="700" fill="#ff3b30">Gpay</text>
+          </svg>
+        </div>
+
+        <div class="pay-icon" aria-label="PhonePe logo">
+          <svg viewBox="0 0 120 50" xmlns="http://www.w3.org/2000/svg">
+            <rect x="1" y="1" width="118" height="48" rx="12" fill="rgba(255,255,255,0.04)" />
+            <text x="60" y="32" text-anchor="middle" font-size="18" font-family="Arial, sans-serif" font-weight="700" fill="#5f4bff">PhonePe</text>
+          </svg>
+        </div>
       </div>
 
       <div class="utr-box">
