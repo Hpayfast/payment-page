@@ -3,176 +3,299 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Secure Payment</title>
+
+<title>Payment Demo</title>
 
 <style>
 *{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial,sans-serif;
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
 }
 
 body{
-height:100vh;
-display:flex;
-justify-content:center;
-align-items:center;
-background:linear-gradient(-45deg,#0f2027,#203a43,#2c5364,#0f2027);
-background-size:400% 400%;
-animation:bg 8s infinite alternate;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+    background:linear-gradient(-45deg,#0f2027,#203a43,#2c5364,#0f2027);
+    background-size:400% 400%;
+    animation:bgMove 10s ease infinite;
 }
 
-@keyframes bg{
+@keyframes bgMove{
 0%{background-position:0% 50%;}
-100%{background-position:100% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
+}
+
+.blur1,.blur2{
+position:absolute;
+width:250px;
+height:250px;
+border-radius:50%;
+filter:blur(80px);
+opacity:.5;
+animation:float 8s infinite alternate;
+}
+
+.blur1{
+background:#00e5ff;
+top:-60px;
+left:-60px;
+}
+
+.blur2{
+background:#8a2be2;
+bottom:-60px;
+right:-60px;
+}
+
+@keyframes float{
+from{transform:translateY(0);}
+to{transform:translateY(60px);}
 }
 
 .card{
 width:360px;
-background:white;
-padding:20px;
-border-radius:15px;
-box-shadow:0 0 20px rgba(0,0,0,.3);
+padding:25px;
+border-radius:25px;
+background:rgba(255,255,255,.12);
+backdrop-filter:blur(20px);
+border:1px solid rgba(255,255,255,.25);
+box-shadow:0 10px 40px rgba(0,0,0,.35);
+color:#fff;
 text-align:center;
 }
 
+.logo{
+width:70px;
+height:70px;
+margin:auto;
+border-radius:50%;
+background:linear-gradient(45deg,#00d2ff,#3a7bd5);
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:32px;
+font-weight:bold;
+margin-bottom:15px;
+}
+
 h2{
-color:#0a7cff;
 margin-bottom:10px;
 }
 
 .timer{
-font-size:22px;
-color:red;
+margin:15px auto;
+padding:10px;
+width:170px;
+border-radius:12px;
+background:rgba(255,255,255,.15);
+font-size:24px;
 font-weight:bold;
-margin:10px 0;
 }
 
-.info{
-background:#f4f4f4;
-padding:10px;
-border-radius:8px;
-margin:10px 0;
+.label{
+text-align:left;
+margin-top:18px;
+font-size:14px;
+opacity:.8;
 }
 
-.upi{
-display:flex;
-margin-top:10px;
-}
-
-.upi input{
-flex:1;
-padding:10px;
-border:1px solid #ccc;
-border-radius:5px 0 0 5px;
-}
-
-.upi button{
-padding:10px 15px;
-background:#0a7cff;
-color:white;
-border:none;
-cursor:pointer;
-border-radius:0 5px 5px 0;
-}
-
-.qr{
-margin:20px 0;
-}
-
-.qr img{
-width:180px;
-height:180px;
-border:1px solid #ddd;
-}
-
-input[type=text]{
-width:100%;
-padding:10px;
-border:1px solid #ccc;
-border-radius:5px;
-margin-top:10px;
-}
-
-.submit{
-width:100%;
+.box{
+margin-top:6px;
 padding:12px;
-margin-top:15px;
-background:green;
-color:white;
-border:none;
-border-radius:5px;
+border-radius:12px;
+background:rgba(255,255,255,.12);
 font-size:16px;
-cursor:pointer;
 }
 </style>
 </head>
 
 <body>
 
+<div class="blur1"></div>
+<div class="blur2"></div>
+
 <div class="card">
 
-<h2>🔒 Secure Payment</h2>
+<div class="logo">🔒</div>
+
+<h2>Payment Demo</h2>
 
 <div class="timer" id="timer">
 10:00
 </div>
 
-<div class="info">
-<b>Product:</b> Premium Plan
-<br><br>
-<b>Amount:</b> ₹499
+<div class="label">Product Name</div>
+<div class="box" id="product">
+Premium Product
 </div>
 
-<div class="upi">
-<input type="text" id="upi" value="yourupi@upi" readonly>
-<button onclick="copyUPI()">Copy</button>
+<div class="label">Amount</div>
+<div class="box" id="amount">
+₹499
 </div>
+<div class="label">Demo Payment ID</div>
 
-<div class="qr">
-<img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=yourupi@upi" alt="QR">
-</div>
+<div class="box"
+style="display:flex;justify-content:space-between;align-items:center;gap:10px;">
 
-<input type="text" maxlength="12" placeholder="Enter 12 Digit UTR">
+<span id="demoId">DEMO123456789</span>
 
-<button class="submit">
-Submit
+<button id="copyBtn"
+style="
+padding:8px 14px;
+border:none;
+border-radius:10px;
+background:#00c853;
+color:#fff;
+cursor:pointer;
+font-weight:bold;">
+Copy
 </button>
 
 </div>
 
+<div class="label">Demo QR</div>
+
+<div class="box" style="padding:18px;">
+
+<div style="
+width:170px;
+height:170px;
+margin:auto;
+border-radius:12px;
+background:
+repeating-linear-gradient(
+45deg,
+#ffffff 0px,
+#ffffff 8px,
+#000000 8px,
+#000000 16px
+);">
+</div>
+
+<div style="margin-top:10px;font-size:13px;opacity:.8;">
+QR Placeholder
+</div>
+
+</div>
+
+<div style="
+margin-top:18px;
+display:flex;
+justify-content:space-around;
+font-weight:bold;">
+
+<span style="color:#00b0ff;">Wallet A</span>
+
+<span style="color:#ff1744;">Wallet B</span>
+
+<span style="color:#7c4dff;">Wallet C</span>
+
+</div>
+
+<div class="label">Demo</div>
+
+<input
+id="demoInput"
+type="text"
+maxlength="12"
+placeholder="Please enter 12 digit demo"
+style="
+width:100%;
+margin-top:8px;
+padding:12px;
+border:none;
+outline:none;
+border-radius:12px;
+background:rgba(255,255,255,.12);
+color:#fff;
+font-size:16px;">
+<button id="submitBtn"
+style="
+width:100%;
+margin-top:20px;
+padding:14px;
+border:none;
+border-radius:12px;
+background:#2196f3;
+color:#fff;
+font-size:17px;
+font-weight:bold;
+cursor:pointer;">
+Submit Demo
+</button>
+
+<p id="result"
+style="
+margin-top:15px;
+font-weight:bold;
+font-size:18px;">
+</p>
+
+</div>
+
 <script>
+// 10 Minute Timer
+let time = 600;
 
-function copyUPI(){
-let upi=document.getElementById("upi");
+const timer = document.getElementById("timer");
 
-navigator.clipboard.writeText(upi.value);
+setInterval(function(){
 
-alert("UPI Copied");
-}
+let min = Math.floor(time/60);
+let sec = time%60;
 
-let total=600;
+timer.innerHTML =
+String(min).padStart(2,'0') + ":" +
+String(sec).padStart(2,'0');
 
-let x=setInterval(function(){
-
-let m=Math.floor(total/60);
-
-let s=total%60;
-
-document.getElementById("timer").innerHTML=
-String(m).padStart(2,"0")+":"+
-String(s).padStart(2,"0");
-
-total--;
-
-if(total<0){
-clearInterval(x);
-document.getElementById("timer").innerHTML="Expired";
+if(time>0){
+time--;
 }
 
 },1000);
 
+// Copy Button
+document.getElementById("copyBtn").onclick=function(){
+
+const text=document.getElementById("demoId").innerText;
+
+navigator.clipboard.writeText(text);
+
+this.innerHTML="Copied ✓";
+
+setTimeout(()=>{
+this.innerHTML="Copy";
+},1500);
+
+};
+
+// Validation
+document.getElementById("submitBtn").onclick=function(){
+
+const value=document.getElementById("demoInput").value.trim();
+
+const result=document.getElementById("result");
+
+if(/^\d{12}$/.test(value)){
+
+result.style.color="#00ff99";
+result.innerHTML="Successful";
+
+}else{
+
+result.style.color="#ff4d4d";
+result.innerHTML="Failed (Enter exactly 12 digits)";
+
+}
+
+};
 </script>
 
 </body>
