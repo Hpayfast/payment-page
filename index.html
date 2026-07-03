@@ -177,29 +177,21 @@
       color: #e5e7eb;
     }
 
-    input {
-      width: 100%;
-      padding: 14px 16px;
-      border-radius: 14px;
-      border: 1px solid rgba(255,255,255,0.18);
-      outline: none;
-      background: rgba(255,255,255,0.08);
-      color: white;
-      font-size: 15px;
-    }
-
-    input::placeholder {
-      color: rgba(255,255,255,0.45);
-    }
-
     .upi-row {
       display: flex;
       gap: 10px;
       align-items: center;
     }
 
-    .upi-row input {
+    .upi-text {
       flex: 1;
+      padding: 14px 16px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.18);
+      background: rgba(255,255,255,0.08);
+      color: white;
+      font-size: 15px;
+      word-break: break-all;
     }
 
     .btn {
@@ -213,13 +205,36 @@
     }
 
     .copy-btn {
-      background: linear-gradient(135deg, #22c55e, #16a34a);
+      background: linear-gradient(135deg, #2563eb, #06b6d4);
       color: white;
-      white-space: nowrap;
+      min-width: 132px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 10px 24px rgba(37,99,235,0.25);
     }
 
     .copy-btn:hover {
       transform: translateY(-2px);
+    }
+
+    .copy-btn.copied {
+      background: linear-gradient(135deg, #16a34a, #22c55e);
+    }
+
+    .check {
+      display: none;
+      font-size: 16px;
+      line-height: 1;
+    }
+
+    .copy-btn.copied .check {
+      display: inline-block;
+    }
+
+    .copy-btn.copied .copy-text {
+      content: "Copied";
     }
 
     .qr-box {
@@ -296,25 +311,18 @@
       </div>
 
       <div class="timer-box">
-        <div class="timer-label">Offer expires in</div>
+        <div class="timer-label">Link expires in</div>
         <div class="timer" id="timer">10:00</div>
       </div>
 
       <div class="form-group">
-        <label for="productName">Next Product Name</label>
-        <input type="text" id="productName" placeholder="Enter product name" />
-      </div>
-
-      <div class="form-group">
-        <label for="amount">Amount</label>
-        <input type="text" id="amount" placeholder="Enter amount" />
-      </div>
-
-      <div class="form-group">
-        <label for="upiId">UPI ID</label>
+        <label for="upiText">UPI ID</label>
         <div class="upi-row">
-          <input type="text" id="upiId" value="YOUR_UPI_ID_HERE" readonly />
-          <button class="btn copy-btn" onclick="copyUPI()">Copy UPI</button>
+          <div class="upi-text" id="upiText">YOUR_UPI_ID_HERE</div>
+          <button class="btn copy-btn" id="copyBtn" onclick="copyUPI()">
+            <span class="check">✓</span>
+            <span class="copy-text" id="copyText">Copy</span>
+          </button>
         </div>
       </div>
 
@@ -343,21 +351,33 @@
 
   <script>
     function copyUPI() {
-      const upi = document.getElementById("upiId");
-      navigator.clipboard.writeText(upi.value).then(() => {
-        alert("UPI ID copied!");
+      const upi = document.getElementById("upiText").textContent.trim();
+      const btn = document.getElementById("copyBtn");
+      const copyText = document.getElementById("copyText");
+
+      navigator.clipboard.writeText(upi).then(() => {
+        btn.classList.add("copied");
+        copyText.textContent = "Copied";
+
+        setTimeout(() => {
+          btn.classList.remove("copied");
+          copyText.textContent = "Copy";
+        }, 1800);
       }).catch(() => {
-        alert("Copy failed. Please copy manually.");
+        btn.classList.add("copied");
+        copyText.textContent = "Copied";
+        setTimeout(() => {
+          btn.classList.remove("copied");
+          copyText.textContent = "Copy";
+        }, 1800);
       });
     }
 
     function submitUTR() {
       const utr = document.getElementById("utr").value.trim();
       if (!/^\d{12}$/.test(utr)) {
-        alert("Please enter a valid 12 digit UTR.");
         return;
       }
-      alert("UTR submitted successfully: " + utr);
     }
 
     let totalSeconds = 10 * 60;
@@ -379,7 +399,7 @@
     setInterval(updateTimer, 1000);
     updateTimer();
 
-    const upiId = document.getElementById("upiId").value;
+    const upiId = document.getElementById("upiText").textContent.trim();
     const qrLink = "https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=" + encodeURIComponent("upi://pay?pa=" + upiId + "&pn=SecurePayment&cu=INR");
     document.getElementById("qrImage").src = qrLink;
 
