@@ -156,8 +156,7 @@ style="width:100%;padding:12px;border:1px solid #ccc;border-radius:8px;font-size
 
 const upi = document.getElementById("upiText").textContent.trim();
 
-const upiLink = `upi://pay?pa=${encodeURIComponent(upi)}&pn=Hicas&cu=INR`;
-
+const upiLink = `upi://pay?pa=${upi}&cu=INR`;
 document.getElementById("qr").src =
 "https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=" +
 encodeURIComponent(upiLink);
