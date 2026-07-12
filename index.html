@@ -152,10 +152,8 @@ style="width:100%;padding:12px;border:1px solid #ccc;border-radius:8px;font-size
 
 <script>
 
-const upi="sharma@paytm";
-const amount="6130";
 
-const upiLink=`upi://pay?pa=${upi}&pn=Hicas&am=${amount}&cu=INR`;
+const upiLink = `upi://pay?pa=${upi}&pn=Hicas&cu=INR`;
 
 document.getElementById("qr").src=
 "https://api.qrserver.com/v1/create-qr-code/?size=250x250&data="+encodeURIComponent(upiLink);
@@ -183,22 +181,16 @@ updateTimer();
 setInterval(updateTimer,1000);
 
 // Copy UPI
-function copyUPI(){
+function copyUPI() {
+  const upi = document.getElementById("upiText").textContent;
 
-navigator.clipboard.writeText(upi);
-
-const btn=document.getElementById("copyBtn");
-
-btn.innerHTML="✅ Copied";
-btn.style.background="#28a745";
-
-setTimeout(()=>{
-btn.innerHTML="📋 Copy UPI";
-btn.style.background="#0d6efd";
-},2000);
-
+  navigator.clipboard.writeText(upi).then(() => {
+    document.getElementById("copyBtn").innerHTML = "✅ Copied";
+    setTimeout(() => {
+      document.getElementById("copyBtn").innerHTML = "📋 Copy UPI";
+    }, 2000);
+  });
 }
-
 // Submit UTR
 function submitPayment(){
 
