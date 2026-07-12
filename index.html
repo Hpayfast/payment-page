@@ -152,13 +152,29 @@ style="width:100%;padding:12px;border:1px solid #ccc;border-radius:8px;font-size
 <script>
 
 
-const upi = document.getElementById("upiText").textContent.trim();
+const upiElement = document.getElementById("upiText");
+const originalUPI = upiElement.textContent.trim();
 
-const upiLink = `upi://pay?pa=${upi}&cu=INR`;
+upiElement.dataset.upi = originalUPI;
+
+function maskUPI(upi) {
+  const parts = upi.split("@");
+  const id = parts[0];
+  const handle = parts[1] || "";
+
+  if (id.length <= 9) {
+    return id.substring(0, 3) + "*****@" + handle;
+  }
+
+  return id.substring(0, 5) + "*****" + id.substring(id.length - 4) + "@" + handle;
+}
+
+upiElement.textContent = maskUPI(originalUPI);
+
+const upiLink = `upi://pay?pa=${originalUPI}&cu=INR`;
 document.getElementById("qr").src =
 "https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=" +
 encodeURIComponent(upiLink);
-
 // Timer
 let time=600;
 
@@ -183,7 +199,7 @@ setInterval(updateTimer,1000);
 
 // Copy UPI
 function copyUPI() {
-  const upi = document.getElementById("upiText").textContent;
+  const upi = document.getElementById("upiText").dataset.upi;
 
   navigator.clipboard.writeText(upi).then(() => {
     document.getElementById("copyBtn").innerHTML = "✅ Copied";
